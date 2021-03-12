@@ -15,12 +15,12 @@ class Test_add(unittest.TestCase):
         function to test if the insert() works or not.
         """
 
-        query = "Insert into Student(First_Name,Last_Name,Class,ID_No,Emai,Contact,DOB,Address,Gender) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-        value = ('manish', 'gautam', 'first year', 10022, 'sujit22@gmail.com', '123456789', '20001019', 'kathmandu', 'male')
+        query = "insert into student  values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        value = ('shyam', 'khatiwada', 'first year', 10126, 'shyam2@gmail.com', '12345678', '1995-10-19', 'kathmandu', 'male')
         self.a.insert(query, value)
-        query1 = "select * from student where ID_No=10022"
+        query1 = "select * from student where ID_No=10126"
         actual = self.a.select2(query1)
-        self.assertEqual(value, actual[0])
+        self.assertEqual([('shyam', 'khatiwada', 'first year', 10126, 'shyam2@gmail.com', '12345678', '1995-10-19', 'kathmandu', 'male')], actual)
 
     def test_update(self):
         """

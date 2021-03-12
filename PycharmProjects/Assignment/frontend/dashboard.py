@@ -311,7 +311,7 @@ class MainWindow(Function):
             # con = ms.connect(host='localhost', user='root', password='manish1#',
             #                  database='student_management')
             # cur = con.cursor()
-            query = "Insert into Student(First_Name,Last_Name,Class,ID_No,Emai,Contact,DOB,Address,Gender) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            query = "Insert into Student(First_Name,Last_Name,Class,ID_No,Email,Contact,DOB,Address,Gender) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             value = (self.fentry.get(), self.lentry.get(), self.class_combo.get(), self.Id_No, self.email_entry.get(),
                      self.contact_entry.get(), self.DOB_entry.get(), self.Address_entry.get(1.0, END),
                      self.gender_entry.get())
@@ -378,7 +378,7 @@ class MainWindow(Function):
             # con = ms.connect(host='localhost', user='root', password='manish1#',
             #                  database='student_management')
             # cur = con.cursor()
-            query = "Update Student set First_Name=%s, Last_Name=%s, Class=%s,Emai=%s, Contact=%s, DOB=%s, Address=%s, Gender=%s Where ID_No=%s"
+            query = "Update Student set First_Name=%s, Last_Name=%s, Class=%s,Email=%s, Contact=%s, DOB=%s, Address=%s, Gender=%s Where ID_No=%s"
             value = (self.fentry.get(), self.lentry.get(), self.class_combo.get(), self.email_entry.get(),
                      self.contact_entry.get(), self.DOB_entry.get(), self.Address_entry.get(1.0, END),
                      self.gender_entry.get(), self.rollno_entry.get())

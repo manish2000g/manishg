@@ -33,10 +33,10 @@ class Login_window:
         self.label1 = Label(self.root, image=self.ph)
         self.label1.image = self.ph
         self.label1.pack()
-        main_frame = Frame(self.root, bg='purple', relief=RAISED)
+        main_frame = Frame(self.root, bg='orange', relief=RAISED)
         main_frame.place(x=400, y=150, width=400, height=400)
-        title = Label(main_frame, text="login!!", relief=GROOVE,
-                      font=("times new roman", 20, "bold"), bg="yellow", fg="black")
+        title = Label(main_frame, text="Sign in!!", relief=GROOVE,
+                      font=("times new roman", 20, "bold"), bg="sky blue", fg="black")
         title.pack(side=TOP, fill=X)
         lbl_username = Label(main_frame, text='User Name:', font=('arial', 16, 'bold'),
                              fg='Black', bg='white')
