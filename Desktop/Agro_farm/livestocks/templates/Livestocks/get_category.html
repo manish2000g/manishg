@@ -12,7 +12,7 @@
             {% include 'messages.html' %}
             <div class="card py-2 px-2">
                 <a class="btn btn-primary btn-sm ms-auto"
-                href="/Livestocks/category_form"
+                href="/livestocks/category_form"
                 >Add New Category</a>
                 <table class="table-striped">
                     <tr>
@@ -26,9 +26,9 @@
                         <td> {{ i.category_name }}</td>
                         <td> {{ i.category_description }}</td>
                         <td> {{ i.created_date }}</td>
-                        <td><a class="btn btn-primary btn-sm" href="/Livestocks/update_category/{{i.id}}">Edit</a> &nbsp;
+                        <td><a class="btn btn-primary btn-sm" href="/livestocks/update_category/{{i.id}}">Edit</a> &nbsp;
                             <a class="btn btn-danger btn-sm"
-                               href="/Livestocks/delete_category/{{i.id}}"
+                               href="/livestocks/delete_category/{{i.id}}"
                                onclick="return confirm('Are you sure want to delete this category?')" >Delete</a></td>
 
                     </tr>

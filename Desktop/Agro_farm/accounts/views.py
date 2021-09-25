@@ -11,13 +11,13 @@ from django.contrib.auth.decorators import login_required
 def homepage(request):
     return render(request, 'accounts/homepage.html')
 
-# @login_required
+@login_required
 def logout_user(request):
     logout(request)
     return redirect('/login')
 
 
-# @unauthenticated_user
+@unauthenticated_user
 def login_user(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -42,7 +42,7 @@ def login_user(request):
     return render(request, 'accounts/login.html', context)
 
 
-# @unauthenticated_user
+@unauthenticated_user
 def signup_user(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)

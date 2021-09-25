@@ -2,16 +2,17 @@ from django.shortcuts import render, redirect
 from .forms import CategoryForm, LivestockForm
 from django.contrib import messages
 from .models import Category, Livestock
+from accounts.auth import admin_only, user_only
 from django.contrib.auth.decorators import login_required
 import os
-from accounts.models import models
+
 
 
 def homepage(request):
     return render(request, 'livestocks/homepage.html')
 
-# @login_required
-# @admin_only
+@login_required
+@admin_only
 def category_form(request):
     if request.method == "POST":
         form = CategoryForm(request.POST, request.FILES)
@@ -29,8 +30,8 @@ def category_form(request):
     return render(request, 'livestocks/category_form.html', context)
 
 
-# @login_required
-# @admin_only
+@login_required
+@admin_only
 def get_category(request):
     categories = Category.objects.all().order_by('-id')
     context = {
@@ -40,16 +41,16 @@ def get_category(request):
     return render(request, 'livestocks/get_category.html', context)
 
 
-# @login_required
-# @admin_only
+@login_required
+@admin_only
 def delete_category(request, category_id):
     category = Category.objects.get(id=category_id)
     category.delete()
     messages.add_message(request, messages.SUCCESS, 'Category Deleted Successfully')
     return redirect('/livestocks/get_category')
 
-# @login_required
-# @admin_only
+@login_required
+@admin_only
 def category_update_form(request, category_id):
     category = Category.objects.get(id=category_id)
     if request.method == "POST":
