@@ -132,3 +132,21 @@ def livestock_update_form(request, livestock_id):
     }
     return render(request, 'livestocks/livestock_update_form.html', context)
 
+
+
+def show_categories(request):
+    categories = Category.objects.all().order_by('-id')
+    context = {
+        'categories':categories,
+        'activate_category_user': 'active'
+    }
+    return render(request, 'livestocks/show_categories.html', context)
+
+
+def show_foods(request):
+    livestocks = Livestock.objects.all().order_by('-id')
+    context = {
+        'livestocks': livestocks,
+        'activate_livestock_user': 'active'
+    }
+    return render(request, 'livestocks/show_livestocks.html', context)

@@ -14,4 +14,7 @@ urlpatterns = [
     path('get_livestock', views.get_livestock),
     path('delete_livestock/<int:livestock_id>', views.delete_livestock),
     path('update_livestock/<int:livestock_id>', views.livestock_update_form),
+
+    path('get_category_user', views.show_categories),
+    path('get_livestock_user', views.show_foods),
 ]
