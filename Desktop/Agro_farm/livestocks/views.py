@@ -67,3 +67,68 @@ def category_update_form(request, category_id):
         'activate_category': 'active'
     }
     return render(request, 'livestocks/category_update_form.html', context)
+
+
+
+
+@login_required
+@admin_only
+def livestock_form(request):
+    if request.method == "POST":
+        form = LivestockForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Livestock added successfully')
+            return redirect("/livestocks/get_food")
+        else:
+            messages.add_message(request, messages.ERROR, 'Unable to add Livestock')
+            return render(request, 'livestocks/livestock_form.html', {'livestock_food': form})
+    context ={
+        'form_livestock': LivestockForm,
+        'activate_livestock': 'active'
+    }
+    return render(request, 'livestocks/livestock_form.html', context)
+
+
+@login_required
+@admin_only
+def get_livestock(request):
+    livestocks =  Livestock.objects.all().order_by('-id')
+    context = {
+        'foods': livestocks,
+        'activate_livestock': 'active'
+    }
+    return render(request, 'livestocks/get_livestock.html', context)
+
+
+@login_required
+@admin_only
+def delete_livestock(request, food_id):
+    livestock = Livestock.objects.get(id=food_id)
+    os.remove(livestock.food_image.path)
+    livestock.delete()
+    messages.add_message(request, messages.SUCCESS, 'Livestock Deleted Successfully')
+    return redirect('/livestocks/get_livestock')
+
+
+@login_required
+@admin_only
+def livestock_update_form(request, food_id):
+    livestock = Livestock.objects.get(id=food_id)
+    if request.method == "POST":
+        if request.FILES.get('livestock_image'):
+            os.remove(livestock.livestock_image.path)
+        form = LivestockForm(request.POST, request.FILES, instance=livestock)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Livestock updated successfully')
+            return redirect("/livestocks/get_livestock")
+        else:
+            messages.add_message(request, messages.ERROR, 'Unable to update livestock')
+            return render(request, 'livestocks/livestock_form.html', {'form_livestock':form})
+    context ={
+        'form_livestock': LivestockForm(instance=livestock),
+        'activate_livestock': 'active'
+    }
+    return render(request, 'livestocks/livestock_update_form.html', context)
+
