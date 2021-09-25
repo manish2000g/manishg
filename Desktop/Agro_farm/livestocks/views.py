@@ -79,7 +79,7 @@ def livestock_form(request):
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Livestock added successfully')
-            return redirect("/livestocks/get_food")
+            return redirect("/livestocks/get_livestock")
         else:
             messages.add_message(request, messages.ERROR, 'Unable to add Livestock')
             return render(request, 'livestocks/livestock_form.html', {'livestock_food': form})
@@ -95,7 +95,7 @@ def livestock_form(request):
 def get_livestock(request):
     livestocks =  Livestock.objects.all().order_by('-id')
     context = {
-        'foods': livestocks,
+        'livestocks': livestocks,
         'activate_livestock': 'active'
     }
     return render(request, 'livestocks/get_livestock.html', context)
@@ -103,8 +103,8 @@ def get_livestock(request):
 
 @login_required
 @admin_only
-def delete_livestock(request, food_id):
-    livestock = Livestock.objects.get(id=food_id)
+def delete_livestock(request, livestock_id):
+    livestock = Livestock.objects.get(id=livestock_id)
     os.remove(livestock.food_image.path)
     livestock.delete()
     messages.add_message(request, messages.SUCCESS, 'Livestock Deleted Successfully')
@@ -113,8 +113,8 @@ def delete_livestock(request, food_id):
 
 @login_required
 @admin_only
-def livestock_update_form(request, food_id):
-    livestock = Livestock.objects.get(id=food_id)
+def livestock_update_form(request, livestock_id):
+    livestock = Livestock.objects.get(id=livestock_id)
     if request.method == "POST":
         if request.FILES.get('livestock_image'):
             os.remove(livestock.livestock_image.path)
