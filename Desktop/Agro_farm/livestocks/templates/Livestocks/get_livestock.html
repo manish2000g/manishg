@@ -28,7 +28,7 @@
                         <td> {{ i.livestock_name }}</td>
                         <td> {{ i.livestock_price }}</td>
                         <td> {{ i.category.category_name }}</td>
-                        <td><img src="/{{i.livestock_image}}" width="200"> </td>
+                        <td><img src="{{i.livestock_image.url}}" width="200"> </td>
                         <td><a class="btn btn-primary btn-sm" href="/livestocks/update_livestock/{{i.id}}">Edit</a> &nbsp;
                             <a class="btn btn-danger btn-sm"
                                href="/livestocks/delete_livestock/{{i.id}}"

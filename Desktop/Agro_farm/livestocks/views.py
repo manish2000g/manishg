@@ -93,7 +93,7 @@ def livestock_form(request):
 @login_required
 @admin_only
 def get_livestock(request):
-    livestocks =  Livestock.objects.all().order_by('-id')
+    livestocks = Livestock.objects.all().order_by('-id')
     context = {
         'livestocks': livestocks,
         'activate_livestock': 'active'
@@ -143,10 +143,20 @@ def show_categories(request):
     return render(request, 'livestocks/show_categories.html', context)
 
 
-def show_foods(request):
+def show_livestocks(request):
     livestocks = Livestock.objects.all().order_by('-id')
     context = {
         'livestocks': livestocks,
         'activate_livestock_user': 'active'
     }
     return render(request, 'livestocks/show_livestocks.html', context)
+
+
+def checklist(request):
+    categories  = Category.objects.all().order_by('-id')
+    context = {
+        'categories':categories,
+        'activate_checklist':'active'
+    }
+    return render(request, 'livestocks/checklist.html', context)
+
