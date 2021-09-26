@@ -160,3 +160,4 @@ def checklist(request):
     }
     return render(request, 'livestocks/checklist.html', context)
 
+
