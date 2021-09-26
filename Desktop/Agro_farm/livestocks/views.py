@@ -199,3 +199,6 @@ def remove_cart_item(request, cart_id):
     item.delete()
     messages.add_message(request, messages.SUCCESS, 'Cart item removed successfully')
     return redirect('/livestocks/mycart')
+
+
+
