@@ -190,3 +190,12 @@ def show_cart_items(request):
         'activate_my_cart':'active'
     }
     return render(request, 'livestocks/mycart.html', context)
+
+
+@login_required
+@user_only
+def remove_cart_item(request, cart_id):
+    item = Cart.objects.get(id=cart_id)
+    item.delete()
+    messages.add_message(request, messages.SUCCESS, 'Cart item removed successfully')
+    return redirect('/livestocks/mycart')
