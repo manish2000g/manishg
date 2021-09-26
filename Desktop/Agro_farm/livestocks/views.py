@@ -178,3 +178,15 @@ def add_to_cart(request, livestock_id):
             return redirect('/livestocks/mycart')
         else:
             messages.add_message(request, messages.ERROR, 'Unable to add item to cart')
+
+
+@login_required
+@user_only
+def show_cart_items(request):
+    user = request.user
+    items = Cart.objects.filter(user= user)
+    context = {
+        'items': items,
+        'activate_my_cart':'active'
+    }
+    return render(request, 'livestocks/mycart.html', context)
