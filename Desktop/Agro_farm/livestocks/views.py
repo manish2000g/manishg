@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import CategoryForm, LivestockForm
 from django.contrib import messages
-from .models import Category, Livestock
+from .models import Category, Livestock, Cart
 from accounts.auth import admin_only, user_only
 from django.contrib.auth.decorators import login_required
 import os
@@ -161,3 +161,20 @@ def checklist(request):
     return render(request, 'livestocks/checklist.html', context)
 
 
+@login_required
+@user_only
+def add_to_cart(request, livestock_id):
+    user = request.user
+    livestock = Livestock.objects.get(id=livestock_id)
+
+    check_item_presence = Cart.objects.filter(user=user, livestock=livestock)
+    if check_item_presence:
+        messages.add_message(request, messages.ERROR, 'Item is already present in cart')
+        return redirect('/livestocks/get_livestock_user')
+    else:
+        cart = Cart.objects.create(livestock=livestock, user=user)
+        if cart:
+            messages.add_message(request, messages.SUCCESS, 'Item added to cart')
+            return redirect('/livestocks/mycart')
+        else:
+            messages.add_message(request, messages.ERROR, 'Unable to add item to cart')

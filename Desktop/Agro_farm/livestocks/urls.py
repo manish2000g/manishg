@@ -18,4 +18,6 @@ urlpatterns = [
     path('get_category_user', views.show_categories),
     path('get_livestock_user', views.show_livestocks),
     path('checklist', views.checklist),
+    path('add_to_cart/<int:livestock_id>',views.add_to_cart),
+
 ]
