@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import CategoryForm, LivestockForm
+from .forms import CategoryForm, LivestockForm, OrderForm
 from django.contrib import messages
-from .models import Category, Livestock, Cart
+from .models import Category, Livestock, Cart, Order
 from accounts.auth import admin_only, user_only
 from django.contrib.auth.decorators import login_required
 import os
@@ -201,4 +201,38 @@ def remove_cart_item(request, cart_id):
     return redirect('/livestocks/mycart')
 
 
+@login_required
+@user_only
+def order_form(request, livestock_id, cart_id):
+    user = request.user
+    livestock = Livestock.objects.get(id=livestock_id)
+    cart_item = Cart.objects.get(id=cart_id)
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            quantity = request.POST.get('quantity')
+            price = livestock.livestock_price
+            total_price = int(quantity) * int(price)
+            contact_no = request.POST.get('contact_no')
+            contact_address = request.POST.get('contact_address')
+            order = Order.objects.create(livestock=livestock,
+                                         user=user,
+                                         quantity=quantity,
+                                         total_price=total_price,
+                                         contact_no=contact_no,
+                                         contact_address=contact_address,
+                                         status="Pending"
+                                         )
+            if order:
+                messages.add_message(request, messages.SUCCESS, 'Item Ordered')
+                cart_item.delete()
+                return redirect('/livestocks/myorders')
+        else:
+                messages.add_message(request, messages.ERROR, 'Something went wrong')
+                return render(request, 'livestocks/order_form.html', {'order_form': form})
+
+    context = {
+        'order_form': OrderForm
+    }
+    return render(request,'livestocks/order_form.html', context)
 
