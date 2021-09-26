@@ -226,7 +226,7 @@ def order_form(request, livestock_id, cart_id):
             if order:
                 messages.add_message(request, messages.SUCCESS, 'Item Ordered')
                 cart_item.delete()
-                return redirect('/livestocks/myorders')
+                return redirect('/livestocks/my_order')
         else:
                 messages.add_message(request, messages.ERROR, 'Something went wrong')
                 return render(request, 'livestocks/order_form.html', {'order_form': form})
@@ -236,3 +236,14 @@ def order_form(request, livestock_id, cart_id):
     }
     return render(request,'livestocks/order_form.html', context)
 
+
+@login_required
+@user_only
+def my_order(request):
+    user = request.user
+    items = Order.objects.filter(user=user).order_by('-id')
+    context = {
+        'items':items,
+        'activate_myorders':'active'
+    }
+    return render(request, 'livestocks/my_order.html', context)
