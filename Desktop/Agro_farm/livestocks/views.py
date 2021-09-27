@@ -215,18 +215,25 @@ def order_form(request, livestock_id, cart_id):
             total_price = int(quantity) * int(price)
             contact_no = request.POST.get('contact_no')
             contact_address = request.POST.get('contact_address')
+            payment_method = request.POST.get('payment_method')
             order = Order.objects.create(livestock=livestock,
                                          user=user,
                                          quantity=quantity,
                                          total_price=total_price,
                                          contact_no=contact_no,
                                          contact_address=contact_address,
-                                         status="Pending"
+                                         status="Pending",
+                                         payment_method=payment_method,
+                                         payment_status=False
                                          )
             if order:
-                messages.add_message(request, messages.SUCCESS, 'Item Ordered')
+                messages.add_message(request, messages.SUCCESS, 'Item Ordered. Continue Payment for Verification ')
                 cart_item.delete()
-                return redirect('/livestocks/my_order')
+                context = {
+                    'order': order,
+                    'cart': cart_item
+                }
+                return render(request, 'livestocks/esewa_payment.html', context)
         else:
                 messages.add_message(request, messages.ERROR, 'Something went wrong')
                 return render(request, 'livestocks/order_form.html', {'order_form': form})
@@ -235,6 +242,37 @@ def order_form(request, livestock_id, cart_id):
         'order_form': OrderForm
     }
     return render(request,'livestocks/order_form.html', context)
+
+
+# import requests as req
+def esewa_verify(request):
+    import xml.etree.ElementTree as ET
+    o_id = request.GET.get('oid')
+    amount = request.GET.get('amt')
+    refId = request.GET.get('refId')
+    url = "https://uat.esewa.com.np/epay/transrec"
+    d = {
+        'amt': amount,
+        'scd': 'EPAYTEST',
+        'rid': refId,
+        'pid': o_id,
+    }
+    resp = request.post(url, d)
+    root = ET.fromstring(resp.content)
+    status = root[0].text.strip()
+    if status == 'Success':
+        order_id = o_id.split("_")[0]
+        order = Order.objects.get(id=order_id)
+        order.payment_status = True
+        order.save()
+        cart_id = o_id.split("_")[1]
+        cart = Cart.objects.get(id=cart_id)
+        cart.delete()
+        messages.add_message(request, messages.SUCCESS, 'Payment Successful')
+        return redirect('/livestocks/mycart')
+    else:
+        messages.add_message(request, messages.ERROR, 'Unable to make payment')
+        return redirect('/livestocks/mycart')
 
 
 @login_required

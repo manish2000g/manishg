@@ -18,4 +18,4 @@ class LivestockForm(ModelForm):
 class OrderForm(ModelForm):
     class Meta:
         model = Order
-        fields = ['quantity', 'contact_no', 'contact_address',]
+        fields = ['quantity', 'contact_no', 'contact_address', 'payment_method']
