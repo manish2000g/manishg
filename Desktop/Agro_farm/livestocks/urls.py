@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -24,5 +24,11 @@ urlpatterns = [
     path('order_form/<int:livestock_id>/<int:cart_id>', views.order_form),
     path('esewa_verify', views.esewa_verify),
     path('my_order', views.my_order),
+
+    path('password_change_user', auth_views.PasswordChangeView.as_view(
+        template_name='livestocks/password_change.html')),
+    path('password_change_done_user', auth_views.PasswordChangeView.as_view(
+        template_name='livestocks/password_change_done.html'), name='password_change_done')
+
 
 ]
