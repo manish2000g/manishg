@@ -133,7 +133,8 @@ def livestock_update_form(request, livestock_id):
     return render(request, 'livestocks/livestock_update_form.html', context)
 
 
-
+@login_required
+@user_only
 def show_categories(request):
     categories = Category.objects.all().order_by('-id')
     context = {
@@ -142,7 +143,8 @@ def show_categories(request):
     }
     return render(request, 'livestocks/show_categories.html', context)
 
-
+@login_required
+@user_only
 def show_livestocks(request):
     livestocks = Livestock.objects.all().order_by('-id')
     context = {
@@ -151,7 +153,8 @@ def show_livestocks(request):
     }
     return render(request, 'livestocks/show_livestocks.html', context)
 
-
+@login_required
+@user_only
 def checklist(request):
     categories  = Category.objects.all().order_by('-id')
     context = {

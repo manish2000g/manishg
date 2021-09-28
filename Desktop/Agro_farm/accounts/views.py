@@ -31,7 +31,7 @@ def login_user(request):
                     return redirect('/admins/dashboard')
                 elif not user.is_staff:
                     login(request, user)
-                    return redirect('/livestocks/homepage')
+                    return redirect('/')
             else:
                 messages.add_message(request, messages.ERROR, "Invalid user credentials")
                 return render(request, 'accounts/login.html', {'form_login': form})
