@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'livestocks.apps.LivestocksConfig',
     'bootstrapform',
+    'django_filters'
+
 ]
 
 MIDDLEWARE = [

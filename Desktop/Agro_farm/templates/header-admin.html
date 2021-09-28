@@ -5,27 +5,29 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link {{activate_category}}" href="/livestocks/get_category">Category</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {{activate_livestock}}" href="/livestocks/get_livestock">Livestocks</a>
         </li>
-
-        {% if user.is_authenticated %}
-
         <li class="nav-item">
           <a class="nav-link" href="/logout">Logout</a>
         </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link {{activate_login}}" href="/login">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{activate_signup}}" href="/signup">Register Admin</a>
-        </li>
-        {% endif %}
+<!--        {% if user.is_authenticated %}-->
+
+<!--&lt;!&ndash;        <li class="nav-item">&ndash;&gt;-->
+<!--&lt;!&ndash;          <a class="nav-link" href="/logout">Logout</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        </li>&ndash;&gt;-->
+<!--        {% else %}-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link {{activate_login}}" href="/login">Login</a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link {{activate_signup}}" href="/signup">Register Admin</a>-->
+<!--        </li>-->
+<!--        {% endif %}-->
 
       </ul>
 
