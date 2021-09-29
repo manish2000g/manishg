@@ -40,8 +40,19 @@ def all_orders(request):
 
 @login_required
 @admin_only
-def delete_order(request, order_id):
-    order = Order.objects.get(id=order_id)
+def delete_order(request, delete_id):
+    order = Order.objects.get(id=delete_id)
     order.delete()
     messages.add_message(request, messages.SUCCESS, 'Order has been deleted successfully')
     return redirect('/livestocks/my_order')
+
+def delivered(request, id):
+    mod = Order.objects.get(id=id)
+    mod.status = "Delivered"
+    mod.save()
+    return redirect("/admins/all_orders")
+def pending(request, id):
+    mod = Order.objects.get(id=id)
+    mod.status = "Pending"
+    mod.save()
+    return redirect("/admins/all_orders")

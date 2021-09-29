@@ -160,6 +160,7 @@ def show_livestocks(request):
     }
     return render(request, 'livestocks/show_livestocks.html', context)
 
+
 @login_required
 @user_only
 def checklist(request):

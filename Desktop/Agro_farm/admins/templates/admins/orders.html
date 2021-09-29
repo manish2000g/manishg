@@ -10,7 +10,7 @@
         <div class="col-md-10 offset-md-1">
             <h1 class="text-center">All Orders</h1>
             <div class="card p-2">
-               {% include 'admins/messages.html' %}
+                {% include 'admins/messages.html' %}
 
                 <table class="table-striped">
                     <tr>
@@ -29,10 +29,31 @@
                         <td>{{items.created_date}}</td>
                         <td>{{items.contact_no}}</td>
                         <td>{{items.contact_address}}</td>
-                        <td>{{items.status}}</td>
+                        <td>{% if items.status == "Pending" %}
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Pending
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="/admins/deliver/{{items.id}}">Delivered</a></li>
+                                </ul>
+                            </div>
+                            {% else %}
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Delivered
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="/admins/pending/{{items.id}}">Pending</a></li>
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </td>
                         <td><a class="btn btn-primary btn-sm"
-                               href="/admins/delete_order/">Delete Order</a> &nbsp;
-                            </td>
+                               href="/admins/delete_order/{{items.id}}">Delete Order</a> &nbsp;
+                        </td>
                     </tr>
                     {% endfor %}
 
