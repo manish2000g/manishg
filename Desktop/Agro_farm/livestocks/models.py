@@ -43,6 +43,7 @@ class Order(models.Model):
     )
     livestock = models.ForeignKey(Livestock, null=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+
     quantity = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(1000)])
     total_price = models.IntegerField(null=True)
     status = models.CharField(max_length=200, choices=STATUS, null=True)

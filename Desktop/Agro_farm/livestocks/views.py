@@ -5,6 +5,7 @@ from .models import Category, Livestock, Cart, Order
 from accounts.auth import admin_only, user_only
 from django.contrib.auth.decorators import login_required
 import os
+# from .filters import LivestockFilter
 
 
 
@@ -95,10 +96,10 @@ def livestock_form(request):
 def get_livestock(request):
     livestocks = Livestock.objects.all().order_by('-id')
     context = {
-        'livestocks': livestocks,
+        'livestock': livestocks,
         'activate_livestock': 'active'
     }
-    return render(request, 'livestocks/get_livestock.html', context)
+    return render(request, 'livestocks/show_livestocks.html', context)
 
 
 @login_required
@@ -146,9 +147,15 @@ def show_categories(request):
 @login_required
 @user_only
 def show_livestocks(request):
-    livestocks = Livestock.objects.all().order_by('-id')
+    print("1")
+    if 'q' in request.GET:
+        q = request.GET['q']
+        print("here")
+        livestocks = Livestock.objects.filter(livestock_name__icontains=q)
+    else:
+        livestocks = Livestock.objects.all().order_by('-id')
     context = {
-        'livestocks': livestocks,
+        'livestock': livestocks,
         'activate_livestock_user': 'active'
     }
     return render(request, 'livestocks/show_livestocks.html', context)
@@ -247,7 +254,7 @@ def order_form(request, livestock_id, cart_id):
     return render(request,'livestocks/order_form.html', context)
 
 
-# import requests as req
+
 def esewa_verify(request):
     import xml.etree.ElementTree as ET
     o_id = request.GET.get('oid')

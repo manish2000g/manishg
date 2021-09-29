@@ -8,17 +8,28 @@
 {% block main_content %}
 <h1>All Livestocks</h1>
 <div class="container">
+    <div class="row">
+        <div class="col-md-5 offset-3">
+            <form>
+                <div class="input-group"><input name="q" type="text" placeholder="Search" class="form-control"/>
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="submit"> Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="row justify-content-around">
-        {% include 'messages.html' %}
-        {% for i in livestocks %}
+        {% for i in livestock %}
         <div class="card col-md-3 m-3">
             <img src="/{{i.livestock_image}}" class="card-img-top" alt="...">
+
             <div class="card-body">
                 <h5 class="card-title">{{i.livestock_name}}</h5>
                 <p class="card-text">Rs. {{i.livestock_price}}</p>
                 <p class="card-text">{{i.category.category_name}}</p>
                 <a href="/livestocks/add_to_cart/{{i.id}}" class="btn btn-primary"
-                onclick="return confirm('Are you sure want to add this item to cart?')">Add to Cart</a>
+                   onclick="return confirm('Are you sure want to add this item to cart?')">Add to Cart</a>
             </div>
         </div>
 
@@ -26,3 +37,4 @@
     </div>
 </div>
 {% endblock main_content %}
+
