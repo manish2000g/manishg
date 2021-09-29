@@ -7,40 +7,40 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link {{activate_category_user}}" aria-current="page" href="/livestocks/get_category_user">Category</a>
+          <a class="nav-link {{activate_category_user}} btn btn-outline-dark me-2" aria-current="page" href="/livestocks/get_category_user">Category</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{activate_checklist}}" href="/livestocks/checklist">Checklist</a>
+          <a class="nav-link {{activate_checklist}} btn btn-outline-dark me-2" href="/livestocks/checklist">Checklist</a>
          </li>
          <li class="nav-item">
-          <a class="nav-link {{activate_livestock_user}}" href="/livestocks/get_livestock_user">Livestocks</a>
+          <a class="nav-link {{activate_livestock_user}} btn btn-outline-dark me-2" href="/livestocks/get_livestock_user">Livestocks</a>
          </li>
           {% if user.is_authenticated %}
          <li class="nav-item">
-          <a class="nav-link {{activate_my_cart}}" href="/livestocks/mycart">My Cart</a>
+          <a class="nav-link {{activate_my_cart}} btn btn-outline-dark me-2" href="/livestocks/mycart">My Cart</a>
          </li>
          <li class="nav-item">
-          <a class="nav-link {{activate_myorders}}" href="/livestocks/my_order">My Order</a>
+          <a class="nav-link {{activate_myorders}} btn btn-outline-dark me-2" href="/livestocks/my_order">My Order</a>
          </li>
 
           <li class="nav-item">
-          <a class="nav-link {{activate_password}}" href="/livestocks/password_change_user">Change-Password</a>
+          <a class="nav-link {{activate_password}}btn btn-outline-dark me-2" href="/livestocks/password_change_user">Change-Password</a>
         </li>
 
          <li class="nav-item">
-          <a class="nav-link" href="/logout">Logout</a>
+          <a class="nav-link btn btn-outline-danger me-2" href="/logout">Logout</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link {{activate_profile}}"
+          <a class="nav-link {{activate_profile}} btn btn-outline-dark me-2"
            href="/profile">{{request.user.username}}</a>
         </li>
         {% else %}
           <li class="nav-item">
-          <a class="nav-link {{ activate_login}}" href="/login">Login</a>
+          <a class="nav-link {{ activate_login}} btn btn-outline-dark me-2" href="/login">Login</a>
         </li>
           <li class="nav-item">
-          <a class="nav-link {{activate_signup}}" href="/signup">Sign Up</a>
+          <a class="nav-link {{activate_signup}} btn btn-outline-dark me-2" href="/signup">Sign Up</a>
         </li>
         {% endif %}
 

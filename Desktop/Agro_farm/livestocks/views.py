@@ -99,7 +99,7 @@ def get_livestock(request):
         'livestock': livestocks,
         'activate_livestock': 'active'
     }
-    return render(request, 'livestocks/show_livestocks.html', context)
+    return render(request, 'livestocks/get_livestock.html', context)
 
 
 @login_required
