@@ -17,10 +17,10 @@
         {% for j in i.livestock_set.all %}
         <div class="checklist-items d-flex justify-content-between">
             <div class="livestock_name">
-                <p>{{j.livestock_name}}</p>
+                <p><strong>{{j.livestock_name}}</strong></p>
             </div>
             <div class="livestock_price">
-        Rs. {{j.livestock_price }}
+                <strong>Rs. {{j.livestock_price }}</strong>
             </div>
 
         </div>

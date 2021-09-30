@@ -82,12 +82,49 @@ def get_admins(request):
     }
     return render(request, 'accounts/admins.html', context)
 
+@login_required
+@admin_only
+def deactivate_admin(request,user_id):
+    user = User.objects.get(id=user_id)
+    user.is_active = False
+    user.save()
+    messages.add_message(request, messages.SUCCESS, 'Admin Disabled')
+    return redirect('/admins/admins')
+
+
+@login_required
+@admin_only
+def deactivate_user(request,user_id):
+    user = User.objects.get(id=user_id)
+    user.is_active = False
+    user.save()
+    messages.add_message(request, messages.SUCCESS, 'User Disabled')
+    return redirect('/admins/users')
+#
+@login_required
+@admin_only
+def activate_user(request,user_id):
+    user = User.objects.get(id=user_id)
+    user.is_active = True
+    user.save()
+    messages.add_message(request, messages.SUCCESS, 'User Enabled')
+    return redirect('/admins/users')
+
+@login_required
+@admin_only
+def activate_admin(request,user_id):
+    user = User.objects.get(id=user_id)
+    user.is_active = True
+    user.save()
+    messages.add_message(request, messages.SUCCESS, 'Admin Enabled')
+    return redirect('/admins/admins')
+
 
 @login_required
 @admin_only
 def promote_user(request,user_id):
     user = User.objects.get(id=user_id)
-    user.is_staff=True
+    user.is_staff = True
     user.save()
     messages.add_message(request, messages.SUCCESS, 'User promoted to admin')
     return redirect('/admins/admins')

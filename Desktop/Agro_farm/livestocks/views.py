@@ -8,7 +8,7 @@ import os
 # from .filters import LivestockFilter
 
 
-
+@user_only
 def homepage(request):
     return render(request, 'livestocks/homepage.html')
 
@@ -238,7 +238,7 @@ def order_form(request, livestock_id, cart_id):
                                          payment_status=False
                                          )
             if order:
-                messages.add_message(request, messages.SUCCESS, 'Item Ordered. Continue Payment for Verification ')
+                messages.add_message(request, messages.SUCCESS, 'Item Ordered Successfully. ')
                 cart_item.delete()
                 context = {
                     'order': order,
@@ -280,7 +280,7 @@ def esewa_verify(request):
         cart = Cart.objects.get(id=cart_id)
         cart.delete()
         messages.add_message(request, messages.SUCCESS, 'Payment Successful')
-        return redirect('/livestocks/mycart')
+        return redirect('/livestocks/my_order')
     else:
         messages.add_message(request, messages.ERROR, 'Unable to make payment')
         return redirect('/livestocks/mycart')

@@ -10,7 +10,7 @@
         <div class="col-md-10 offset-md-1">
             <h1 class="text-center">All Admins</h1>
             <div class="card p-2">
-               {% include 'accounts/messages.html' %}
+                {% include 'accounts/messages.html' %}
                 <table class="table-striped">
                     <tr>
                         <th>Username</th>
@@ -19,7 +19,16 @@
                     {% for i in admins %}
                     <tr>
                         <td> {{ i.username }}</td>
-                        <td>
+                        <td><a class="btn btn-primary btn-sm"
+                               href="/deactivate_admin/{{i.id}}"
+                               onclick="return confirm('Are you sure want to deactivate this admin?')">Deactivate</a>
+                            &nbsp; &nbsp;
+
+                            <a class="btn btn-primary btn-sm"
+                               href="/activate_admin/{{i.id}}"
+                               onclick="return confirm('Are you sure want to activate this admin?')">Activate</a>
+                            &nbsp; &nbsp;
+
                             <a class="btn btn-danger btn-sm"
                                href="/demote_user/{{i.id}}"
                                onclick="return confirm('Are you sure want to demote this user?')"

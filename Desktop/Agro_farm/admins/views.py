@@ -44,7 +44,7 @@ def delete_order(request, delete_id):
     order = Order.objects.get(id=delete_id)
     order.delete()
     messages.add_message(request, messages.SUCCESS, 'Order has been deleted successfully')
-    return redirect('/livestocks/my_order')
+    return redirect('/admins/all_orders')
 
 def delivered(request, id):
     mod = Order.objects.get(id=id)
