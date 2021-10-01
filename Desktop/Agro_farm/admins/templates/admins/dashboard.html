@@ -1,10 +1,8 @@
 {% extends 'layout-admin.html' %}
 {% load static %}
-
 {% block title %}
 <title>Homepage</title>
 {% endblock title %}
-
 {% block main_content %}
 <h1>Admin Dashboard</h1>
 <style>
@@ -12,14 +10,11 @@
     text-decoration:none;
     color:#fff;
     }
-
     .card-body a:hover{
     color:orange;
     }
-
 </style>
 <div class="container" >
-
     {% include 'admins/messages.html' %}
     <div class="row">
         <div class="col">
@@ -80,7 +75,6 @@
             </div>
         </div>
          </div>
-
     </div>
 </div>
 

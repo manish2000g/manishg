@@ -3,9 +3,7 @@
 {% block title %}
     <title>Login</title>
 {% endblock%}
-
 {% block main_content %}
-
 <div class="container " >
 <div class="row ">
 
@@ -22,6 +20,7 @@
     </div>
 </div>
 </div>
+
 <script>
     var form_fields = document.getElementsByTagName('input')
     form_fields[1].placeholder = "Enter username"
@@ -31,5 +30,4 @@
    form_fields[field].className += ' my-3'
    }
 </script>
-
 {% endblock %}
